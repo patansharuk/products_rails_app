@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
     protect_from_forgery with: :null_session
+    before_action :set_product, except: [:index, :create]
 
     def index
         @products = Product.all
@@ -16,29 +17,18 @@ class ProductsController < ApplicationController
     end
 
     def update
-        @product = Product.find_by(id: params[:id])
-        if @product
-            if @product.update(product_params)
-                render json: @product
-            else
-                render json: {message: @product.errors.full_messages}
-            end
+        if @product.update(product_params)
+            render json: @product
         else
-            render json: {message: 'product with id not found'}
-        end
-        
+            render json: {message: @product.errors.full_messages}
+        end       
     end
 
     def destroy
-        @product = Product.find_by(id: params[:id])
-        if @product
-            if @product.destroy
-                render json: @product
-            else
-                render json: {message: @product.errors.full_messages}
-            end
+        if @product.destroy
+            render json: @product
         else
-            render json: { message: 'Product with id not found' }
+            render json: {message: @product.errors.full_messages}
         end
     end
 
@@ -46,5 +36,12 @@ class ProductsController < ApplicationController
 
     def product_params
         params[:product].permit(:title, :description)
+    end
+
+    def set_product
+        @product = Product.find_by(id: params[:id])
+        if !@product
+            render json: { message: 'Product with id not found.!'}
+        end
     end
 end
