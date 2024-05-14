@@ -1,62 +1,34 @@
 class ReviewsController < ApplicationController
     protect_from_forgery with: :null_session
+    before_action :set_product
+    before_action :set_review, except: [:index, :create]
 
     def index
-        @product = Product.find_by(id: params[:product_id])
-        if @product
-            @reviews = @product.reviews
-            render json: @reviews
-        else
-            render json: {message: 'product with id not found!'}
-        end
+        @reviews = @product.reviews
+        render json: @reviews
     end
 
     def create
-        @product = Product.find_by(id: params[:product_id])
-        if @product
-            if @product.reviews.create(review_params)
-                render json: @product.reviews
-            else
-                render json: {message: 'failed creating review!'}
-            end
+        if @product.reviews.create(review_params)
+            render json: @product.reviews
         else
-            render json: {message: 'product with id not found!'}
+            render json: {message: 'failed creating review!'}
         end
     end
 
     def update
-        @product = Product.find_by(id: params[:product_id])
-        if @product
-            @review = @product.reviews.find_by(id: params[:id])
-            if @review
-                if @review.update(review_params)
-                    render json: @review
-                else
-                    render json: {message: 'failed creating review!'}
-                end
-            else
-                render json: {message: 'review with id not found!'}
-            end
+        if @review.update(review_params)
+            render json: @review
         else
-            render json: {message: 'product with id not found!'}
+            render json: {message: 'failed creating review!'}
         end
     end
 
     def destroy
-        @product = Product.find_by(id: params[:product_id])
-        if @product
-            @review = @product.reviews.find_by(id: params[:id])
-            if @review
-                if @review.destroy
-                    render json: {message: 'review deleted successfully!'}
-                else
-                    render json: {message: 'review deletion failed!'}
-                end
-            else
-                render json: {message: 'review with id not found!'}
-            end
+        if @review.destroy
+            render json: {message: 'review deleted successfully!'}
         else
-            render json: {message: 'product with id not found!'}
+            render json: {message: 'review deletion failed!'}
         end
     end
 
@@ -64,5 +36,19 @@ class ReviewsController < ApplicationController
 
     def review_params
         params[:review].permit(:description)
+    end
+
+    def set_product
+        @product = Product.find_by(id: params[:product_id])
+        if !@product
+            render json: {message: 'product with id not found..!'}
+        end
+    end
+
+    def set_review
+        @review = @product.reviews.find_by(id: params[:id])
+        if !@review
+            render json: {message: 'review with id not found..!'}
+        end
     end
 end
