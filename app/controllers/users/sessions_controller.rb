@@ -23,7 +23,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def respond_with(resource, *args)
     if resource.save
-      render json: resource
+      render json: {resource: resource, token: request.env['warden-jwt_auth.token']}
     else
       render json: {message: 'sign in failed', errors: resource.errors}
     end
