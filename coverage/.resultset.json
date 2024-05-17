@@ -1,0 +1,68 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/app/models/product.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/spec/models/review_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          1,
+          2,
+          null,
+          null,
+          3,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          2,
+          null,
+          null
+        ]
+      },
+      "/home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/app/models/review.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/spec/models/user_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          4,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1715953740
+  }
+}
