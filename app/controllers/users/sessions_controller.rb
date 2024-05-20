@@ -22,10 +22,10 @@ class Users::SessionsController < Devise::SessionsController
   # protected
 
   def respond_with(resource, *args)
-    if resource.save
-      render json: {resource: resource, token: request.env['warden-jwt_auth.token']}
+    if resource.persisted?
+      render json: {resource: resource, token: request.env['warden-jwt_auth.token'], message: 'Logged in successfully.'}
     else
-      render json: {message: 'sign in failed', errors: resource.errors}
+      render json: {message: 'Invalid Email or password.', errors: resource.errors}
     end
   end
 
@@ -44,7 +44,7 @@ class Users::SessionsController < Devise::SessionsController
       render json: {
         status: 200,
         message: 'Logged out successfully.'
-      }, status: :ok
+      }, status: :no_content
     else
       render json: {
         status: 401,
