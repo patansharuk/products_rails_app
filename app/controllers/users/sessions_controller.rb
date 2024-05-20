@@ -23,9 +23,9 @@ class Users::SessionsController < Devise::SessionsController
 
   def respond_with(resource, *args)
     if resource.persisted?
-      render json: {resource: resource, token: request.env['warden-jwt_auth.token'], message: 'Logged in successfully.'}
+      render json: {resource: resource, token: request.env['warden-jwt_auth.token'], message: 'Logged in successfully.'}, status: :ok
     else
-      render json: {message: 'Invalid Email or password.', errors: resource.errors}
+      render json: {message: 'Invalid Email or password.', errors: resource.errors}, status: :unauthorized
     end
   end
 
@@ -42,12 +42,10 @@ class Users::SessionsController < Devise::SessionsController
     
     if current_user
       render json: {
-        status: 200,
         message: 'Logged out successfully.'
       }, status: :no_content
     else
       render json: {
-        status: 401,
         message: "Couldn't find an active session."
       }, status: :unauthorized
     end
