@@ -20,15 +20,15 @@ class ProductsController < ApplicationController
         if @product.update(product_params)
             render json: @product, status: :ok
         else
-            render json: {message: @product.errors.full_messages}
-        end       
+            render json: {message: @product.errors.full_messages}, status: :unprocessable_entity
+        end
     end
 
     def destroy
         if @product.destroy
-            render json: @product, status: :ok
+            render json: @product, status: :no_content
         else
-            render json: {message: @product.errors.full_messages}
+            render json: {message: @product.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
     def set_product
         @product = Product.find_by(id: params[:id])
         if !@product
-            render json: { message: 'Product with id not found.!'}
+            render json: { message: 'Product with id not found.!'}, status: :unprocessable_entity
         end
     end
 end
