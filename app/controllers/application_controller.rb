@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
         if user_signed_in?
             super
         else
-            render json: {errors: 'Unauthorised'}
+            render json: {errors: 'Unauthorised'}, status: 401
         end
     end
 end

@@ -4,13 +4,13 @@ class ProductsController < ApplicationController
 
     def index
         @products = Product.all
-        render json: @products
+        render json: @products, status: :ok
     end
 
     def create
         @product = Product.new(product_params)
         if @product.save
-            render json: @product
+            render json: @product, status: :ok
         else
             render json: {message: 'Failed creating product!'}
         end
@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
 
     def update
         if @product.update(product_params)
-            render json: @product
+            render json: @product, status: :ok
         else
             render json: {message: @product.errors.full_messages}
         end       
@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
 
     def destroy
         if @product.destroy
-            render json: @product
+            render json: @product, status: :ok
         else
             render json: {message: @product.errors.full_messages}
         end
