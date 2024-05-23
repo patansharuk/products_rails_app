@@ -10,9 +10,9 @@ class ProductsController < ApplicationController
     def create
         @product = Product.new(product_params)
         if @product.save
-            render json: @product, status: :ok
+            render json: @product, status: :created
         else
-            render json: {message: 'Failed creating product!'}
+            render json: {message: 'Failed creating product!'}, status: :unprocessable_entity
         end
     end
 
