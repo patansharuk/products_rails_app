@@ -22,3 +22,13 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+# For swaggerizing the specs
+* rake rswag:specs:swaggerize
+
+# For starting the application both frontend react and backend rails using foreman on specified ports 3002 and 3003
+* rake start
+
+# For installing packages
+* bundle install

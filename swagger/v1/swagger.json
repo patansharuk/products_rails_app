@@ -5,6 +5,48 @@
     "version": "v1"
   },
   "paths": {
+    "/dealer_details": {
+      "get": {
+        "summary": "Retrieve Dealer Details",
+        "tags": [
+          "Dealer Details"
+        ],
+        "responses": {
+          "200": {
+            "description": "for valid token"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        }
+      }
+    },
+    "/dealer_details/{id}": {
+      "get": {
+        "summary": "Retrieve Specific Detail",
+        "tags": [
+          "Dealer Details"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "for valid token"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "summary": "render products",
