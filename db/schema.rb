@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_28_161915) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_28_175859) do
   create_table "dealer_details", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -42,6 +42,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_161915) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "dealer_detail_id"
+    t.integer "price"
+    t.string "image_url"
+    t.index ["dealer_detail_id"], name: "index_products_on_dealer_detail_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -70,5 +74,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_161915) do
   end
 
   add_foreign_key "dealer_details", "users"
+  add_foreign_key "products", "dealer_details"
   add_foreign_key "reviews", "products"
 end

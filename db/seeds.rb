@@ -1,4 +1,3 @@
-
 User.destroy_all
 userDetails = [
     {
@@ -34,4 +33,22 @@ dealer_detail = {
     rating: 4
 }
 
-dd = d.create_dealer_details(dealer_detail)
+dd = d.create_dealer_detail(dealer_detail)
+
+product_detail = [
+    {
+        title: 'mango',
+        description: 'mango is a seasional fruit.',
+        price: 120,
+        image_url: ''
+    },
+    {
+        title: 'guaua',
+        description: 'guaua is a daily available fruit.',
+        price: 1000,
+        image_url: ''
+    }
+]
+
+prod1 = dd.products.create(product_detail[0])
+prod2 = dd.products.create(product_detail[1])
