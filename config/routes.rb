@@ -9,7 +9,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
-  resources :products do
-    resources :reviews
+
+  resources :dealer_details do
+    resources :products do
+      resources :reviews
+    end
   end
 end
