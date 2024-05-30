@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_28_175859) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_132308) do
   create_table "dealer_details", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -66,7 +66,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_175859) do
     t.datetime "updated_at", null: false
     t.string "jti", null: false
     t.string "name"
-    t.string "role"
+    t.integer "role"
     t.boolean "is_active"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
