@@ -4,7 +4,7 @@ class DealerDetailsController < ApplicationController
 
     def index
         @dealers = DealerDetail.all
-        render json: @dealers, status: :ok
+        render json: {data: @dealers, message: 'Dealer Details fetched successfully' }, status: :ok
     end
 
     def create

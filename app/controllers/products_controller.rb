@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
     def index
         @products = Product.all
-        render json: @products, status: :ok
+        render json: {data: @products, message: 'Products fetched successfully!'}, status: :ok
     end
 
     def create

@@ -15,4 +15,7 @@ Rails.application.routes.draw do
       resources :reviews
     end
   end
+
+  resources :dealer_details, controller: 'dealer_details', only: [:index]
+  resources :products, controller: 'products', only: [:index]
 end
