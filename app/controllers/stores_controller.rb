@@ -1,4 +1,4 @@
-class DealerDetailsController < ApplicationController
+class StoresController < ApplicationController
     before_action :authenticate_user!
     before_action :set_dealer, except: [:index, :create, :dealer_products]
 

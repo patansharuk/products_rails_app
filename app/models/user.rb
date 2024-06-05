@@ -13,6 +13,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :jwt_authenticatable, jwt_revocation_strategy: self
 
-  has_one :dealer_detail, dependent: :destroy
+  has_one :store, dependent: :destroy
   validates :role, :name, presence: true
 end
