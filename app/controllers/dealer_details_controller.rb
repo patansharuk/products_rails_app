@@ -1,6 +1,6 @@
 class DealerDetailsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_dealer, except: [:index, :create]
+    before_action :set_dealer, except: [:index, :create, :dealer_products]
 
     def index
         @dealers = DealerDetail.all
@@ -8,11 +8,19 @@ class DealerDetailsController < ApplicationController
     end
 
     def create
-        @dealerDetail = DealerDetail.new(dealer_params)
-        if @dealerDetail.save()
-            render json: { message: 'Dealer details created successfully', id: @dealerDetail.id }, status: :created
+        if current_user.role != 'dealer'
+            render json: { message: 'You should be dealer to create the product'}
         else
-            render json: { errors: @dealerDetail.errors.full_messages }, status: :unprocessable_entity
+            @dealerDetail = User.find_by(id: current_user.id).create_dealer_detail(dealer_detail_params)
+            if @dealerDetail.nil?
+                render json: { message: 'User not found. May have technical problem!' }
+            end
+
+            if @dealerDetail.save()
+                render json: { message: 'Dealer details created successfully', id: @dealerDetail.id }, status: :created
+            else
+                render json: { message: @dealerDetail.errors.full_messages }, status: :unprocessable_entity
+            end
         end
     end
 
@@ -36,10 +44,16 @@ class DealerDetailsController < ApplicationController
         end
     end
 
+
+    def dealer_products
+        @dealerProducts = DealerDetail.find_by(id: params[:id]).products
+        render json: {data: @dealerProducts, message: 'Successfully fetched dealer products' }
+    end
+
     private
 
-    def dealer_params
-        params.require(:dealer).permit(:name)
+    def dealer_detail_params
+        params.require(:dealer_detail).permit(:name, :location, :rating)
     end
 
     def set_dealer

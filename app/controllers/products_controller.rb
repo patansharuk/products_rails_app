@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_product, except: [:index, :create]
+    before_action :set_dealer, only: [:create]
 
     def index
         @products = Product.all
@@ -8,11 +9,11 @@ class ProductsController < ApplicationController
     end
 
     def create
-        @product = Product.new(product_params)
+        @product = @dealer.products.create(product_params)
         if @product.save
-            render json: @product, status: :created
+            render json: {data: @product, message: 'Product created successfully.'}, status: :created
         else
-            render json: {message: 'Failed creating product!'}, status: :unprocessable_entity
+            render json: {message: @product.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
@@ -35,13 +36,20 @@ class ProductsController < ApplicationController
     private
 
     def product_params
-        params[:product].permit(:title, :description)
+        params[:product].permit(:title, :description, :price, :image_url)
     end
 
     def set_product
         @product = Product.find_by(id: params[:id])
         if !@product
             render json: { message: 'Product with id not found.!'}, status: :unprocessable_entity
+        end
+    end
+
+    def set_dealer
+        @dealer = DealerDetail.find_by(id: params[:dealer_detail_id])
+        if !@dealer
+            render json: { message: 'Dealer with id not found!' }, status: :unprocessable_entity
         end
     end
 end

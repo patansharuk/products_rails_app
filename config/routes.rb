@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   }
 
   resources :dealer_details do
+    get '/products', to: 'dealer_details#dealer_products', on: :member
     resources :products do
       resources :reviews
     end
