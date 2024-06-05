@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   }
 
   resources :stores do
-    get '/products', to: 'stores#products', on: :member
+    get '/products', to: 'stores#store_products', on: :member
+    get '/products', to: 'products#index', on: :collection
     resources :products do
       resources :reviews
     end

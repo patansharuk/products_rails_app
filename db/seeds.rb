@@ -1,22 +1,22 @@
 User.destroy_all
 userDetails = [
     {
-        email: 'sharukhan@webkorps.com',
+        email: 'sharukhan@admin.com',
         name: 'sharukhan',
         role: 'admin',
         password: '123456',
         is_active: 1
     },
     {
-        email: 'salmankhan@webkorps.com',
-        name: 'salmankhan',
+        email: 'sharukhan@dealer.com',
+        name: 'sharukhan',
         role: 'dealer',
         password: '123456',
         is_active: 1
     },
     {
-        email: 'amirkhan@webkorps.com',
-        name: 'amirkhan',
+        email: 'sharukhan@customer.com',
+        name: 'sharukhan',
         role: 'customer',
         password: '123456',
         is_active: 1
@@ -27,13 +27,13 @@ a = User.create(userDetails[0])
 d = User.create(userDetails[1])
 c = User.create(userDetails[2])
 
-dealer_detail = {
+store = {
     name: d.name || d.email,
     location: 'delhi',
     rating: 4
 }
 
-dd = d.create_dealer_detail(dealer_detail)
+dd = d.create_store(store)
 
 product_detail = [
     {

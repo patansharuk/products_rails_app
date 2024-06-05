@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     end
 
     def create
-        @product = @dealer.products.create(product_params)
+        @product = @store.products.create(product_params)
         if @product.save
             render json: {data: @product, message: 'Product created successfully.'}, status: :created
         else
@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
 
     def update
         if @product.update(product_params)
-            render json: @product, status: :ok
+            render json: {data: @product, message: 'Product updated successfully!'}, status: :ok
         else
             render json: {message: @product.errors.full_messages}, status: :unprocessable_entity
         end
@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
 
     def destroy
         if @product.destroy
-            render json: @product, status: :no_content
+            render json: {data: @product, message: 'Product deleted successfully!'}, status: :no_content
         else
             render json: {message: @product.errors.full_messages}, status: :unprocessable_entity
         end
@@ -47,9 +47,9 @@ class ProductsController < ApplicationController
     end
 
     def set_dealer
-        @dealer = DealerDetail.find_by(id: params[:dealer_detail_id])
-        if !@dealer
-            render json: { message: 'Dealer with id not found!' }, status: :unprocessable_entity
+        @store = Store.find_by(id: params[:store_id])
+        if !@store
+            render json: { message: 'Store with id not found!' }, status: :unprocessable_entity
         end
     end
 end
