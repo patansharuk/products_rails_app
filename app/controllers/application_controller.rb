@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :null_session
 
+    rescue_from CanCan::AccessDenied do |exception|
+        respond_to do |format|
+          format.json { render json: {message: 'Item not found'}, status: :not_found }
+        end
+    end
+
     private
 
     def authenticate_user!

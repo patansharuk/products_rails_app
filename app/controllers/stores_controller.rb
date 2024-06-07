@@ -1,9 +1,10 @@
 class StoresController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_dealer, except: [:index, :create, :store_products]
+    load_and_authorize_resource
+    before_action :set_store, except: [:index, :create, :store_products]
 
     def index
-        @stores = Store.all
+        @stores = Store.accessible_by(current_ability)
         render json: {data: @stores, message: 'Stores fetched successfully' }, status: :ok
     end
 
@@ -55,10 +56,10 @@ class StoresController < ApplicationController
         params.require(:dealer_detail).permit(:name, :location, :rating)
     end
 
-    def set_dealer
+    def set_store
         @store = Store.find_by(id: params['id'])
         if @store.nil?
-            render json:{message: 'Store with id not found!'}, status: :unprocessable_entity
+            render json:{message: 'Store with id not found!'}, status: :not_found
         end
         @store
     end
