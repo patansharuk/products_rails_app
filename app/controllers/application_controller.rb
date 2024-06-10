@@ -7,6 +7,20 @@ class ApplicationController < ActionController::Base
         end
     end
 
+    def admin_dashboard
+        begin
+            @analytics = {
+                products_count: Product.count,
+                stores_count: Store.count,
+                dealers_count: User.where(role: 'dealer').count,
+                customers_count: User.where(role: 'customer').count
+            }
+            render json: {data: @analytics, message: 'Fetched analytics succesfully'}, status: :ok
+        rescue => e
+            render json: {message: e}, status: :unprocessable_entity
+        end
+    end
+
     private
 
     def authenticate_user!

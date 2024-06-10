@@ -1,7 +1,7 @@
 class StoresController < ApplicationController
     before_action :authenticate_user!
     load_and_authorize_resource
-    before_action :set_store, except: [:index, :create, :store_products]
+    before_action :set_store, except: [:index, :create, :store_products, :store_analytics]
 
     def index
         @stores = Store.accessible_by(current_ability)
@@ -9,19 +9,15 @@ class StoresController < ApplicationController
     end
 
     def create
-        if current_user.role != 'dealer'
-            render json: { message: 'You should be dealer to create the product'}
-        else
-            @store = User.find_by(id: current_user.id).create_dealer_detail(dealer_detail_params)
-            if @store.nil?
-                render json: { message: 'User not found. May have technical problem!' }
-            end
+        @store = User.find_by(id: current_user.id).create_dealer_detail(dealer_detail_params)
+        if @store.nil?
+            render json: { message: 'User not found. May have technical problem!' }
+        end
 
-            if @store.save()
-                render json: { message: 'Dealer details created successfully', id: @store.id }, status: :created
-            else
-                render json: { message: @store.errors.full_messages }, status: :unprocessable_entity
-            end
+        if @store.save()
+            render json: { message: 'Dealer details created successfully', id: @store.id }, status: :created
+        else
+            render json: { message: @store.errors.full_messages }, status: :unprocessable_entity
         end
     end
 
@@ -48,6 +44,20 @@ class StoresController < ApplicationController
     def store_products
         @storeProducts = Store.find_by(id: params[:id]).products
         render json: {data: @storeProducts, message: 'Successfully fetched store products' }
+    end
+
+    def store_analytics
+        begin
+            @stores_count = Store.count - 1
+            @products = Store.find_by(user_id: current_user.id).products.count
+            @analytics = {
+                competitors: @stores_count,
+                total_dealer_products: @products
+            }
+            render json: {message: 'Products fetched successfully!', data: @analytics}, status: :ok
+        rescue => e
+            render json: {message: e}, status: :not_found
+        end
     end
 
     private

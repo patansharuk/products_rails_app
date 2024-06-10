@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :stores do
     get '/products', to: 'stores#store_products', on: :member
     get '/products', to: 'products#index', on: :collection
+    get '/products-analytics', to: 'stores#store_analytics', on: :collection
     resources :products do
       resources :reviews
     end
@@ -20,4 +21,6 @@ Rails.application.routes.draw do
 
   resources :stores, controller: 'stores', only: [:index]
   resources :products, controller: 'products', only: [:index]
+
+  get '/admin-dashboard', to: 'application#admin_dashboard'
 end

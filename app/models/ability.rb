@@ -9,6 +9,7 @@ class Ability
     elsif user.dealer?
       can :read, Store, user_id: user.id
       can :store_products, Store, user: user
+      can :store_analytics, Store, user: user
     else
       can :read, Product, user: user
     end
