@@ -60,6 +60,8 @@ group :development do
   # gem "spring"
   gem 'shoulda-matchers'
   gem "faker"
+  gem 'rswag'
+  gem 'foreman'
 end
 
 group :test do
@@ -77,7 +79,5 @@ end
 
 gem 'devise'
 gem 'devise-jwt'
-gem 'foreman'
 gem 'rack-cors'
-gem 'rswag'
 gem 'cancancan'
