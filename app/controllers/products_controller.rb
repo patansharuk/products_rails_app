@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
     before_action :set_dealer, only: [:create]
 
     def index
+        LoggingJob.perform_async()
         @products = Product.all
         render json: {data: @products, message: 'Products fetched successfully!'}, status: :ok
     end

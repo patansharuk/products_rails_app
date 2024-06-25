@@ -32,3 +32,6 @@ Things you may want to cover:
 
 # For installing packages
 * bundle install
+
+# For running sidekiq
+* bundle exec sidekiq (make sure the redis is running in parallel)
