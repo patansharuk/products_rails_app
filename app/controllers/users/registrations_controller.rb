@@ -17,9 +17,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def respond_with(resource, *args)
     if resource.save
-      render json: {resource: resource, token: request.env['warden-jwt_auth.token']}
+      render json: {resource: resource, token: request.env['warden-jwt_auth.token']}, status: :ok
     else
-      render json: {errors: resource.errors.full_messages}
+      render json: {errors: resource.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
