@@ -1,0 +1,298 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/dealer_details": {
+      "get": {
+        "summary": "Retrieve Dealer Details",
+        "tags": [
+          "Dealer Details"
+        ],
+        "responses": {
+          "200": {
+            "description": "for valid token"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        }
+      }
+    },
+    "/dealer_details/{id}": {
+      "get": {
+        "summary": "Retrieve Specific Detail",
+        "tags": [
+          "Dealer Details"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "for valid token"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "render products",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "require": true,
+            "description": "JWT Token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "for valid token - empty product table"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        }
+      },
+      "post": {
+        "summary": "create products",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "require": true,
+            "description": "JWT Token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "for valid token"
+          },
+          "422": {
+            "description": "for insufficient attributes"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "description"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "put": {
+        "summary": "update products",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "require": true,
+            "description": "JWT Token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "for valid token"
+          },
+          "422": {
+            "description": "for valid token"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "description"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/1": {
+      "delete": {
+        "summary": "delete products",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "require": true,
+            "description": "JWT Token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "for valid token"
+          },
+          "401": {
+            "description": "for invalid token"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "login user",
+        "tags": [
+          "User Sessions"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "successful"
+          },
+          "401": {
+            "description": "failed"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "email",
+                      "password"
+                    ]
+                  }
+                },
+                "required": [
+                  "user"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "delete": {
+        "summary": "logout user",
+        "tags": [
+          "User Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "JWT token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful"
+          },
+          "401": {
+            "description": "failed"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "localhost:3002/"
+        }
+      }
+    }
+  ]
+}

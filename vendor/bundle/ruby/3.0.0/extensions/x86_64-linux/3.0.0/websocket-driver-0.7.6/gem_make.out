@@ -1,0 +1,15 @@
+current directory: /home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+/home/dell/.rvm/rubies/ruby-3.0.0/bin/ruby -I /home/dell/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20240517-233859-jyaovd.rb extconf.rb
+creating Makefile
+
+current directory: /home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make "DESTDIR=" clean
+
+current directory: /home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make "DESTDIR="
+compiling websocket_mask.c
+linking shared-object websocket_mask.so
+
+current directory: /home/dell/Documents/sharuWorkApril15/products_app/backend/products_rails_app/vendor/bundle/ruby/3.0.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20240517-233859-ap8opm
