@@ -23,4 +23,6 @@ Rails.application.routes.draw do
   resources :products, controller: 'products', only: [:index]
 
   get '/admin-dashboard', to: 'application#admin_dashboard'
+
+  post '/charge-products-session', controller: 'charges', action: 'index'
 end
